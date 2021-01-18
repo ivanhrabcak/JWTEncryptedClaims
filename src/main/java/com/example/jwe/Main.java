@@ -75,7 +75,7 @@ public class Main {
         JSONObject encryptedClaimsObject = new JSONObject();
 
         encryptedClaimsObject.put("email", "ivan@hrabcak.eu");
-        encryptedClaimsObject.put("github", "ivanhrabcak");
+        encryptedClaimsObject.put("github", "https://github.com/ivanhrabcak/JWTEncryptedClaims");
 
         System.out.println("Encrypted claims:");
         System.out.println(encryptedClaimsObject.toString());
