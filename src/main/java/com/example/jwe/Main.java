@@ -40,33 +40,6 @@ public class Main {
     public static Base64.Encoder base64 = Base64.getEncoder();
     public static Base64.Decoder base64Decoder = Base64.getDecoder();
 
-    public static URL getFileResourcePath(String relativePath) {
-        return Main.class.getClassLoader().getResource(relativePath);
-    }
-
-//    public static String encryptString(String input, PublicKey key) {
-//        try {
-//            Cipher cipher = Cipher.getInstance("RSA");
-//            cipher.init(Cipher.ENCRYPT_MODE, key);
-//            return new String(cipher.doFinal(base64.encode(input.getBytes())));
-//        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-//
-//    public static String decryptString(String input, PrivateKey key) {
-//        try {
-//            Cipher cipher = Cipher.getInstance("RSA");
-//            cipher.init(Cipher.DECRYPT_MODE, key);
-//            byte[] decipheredBytes = cipher.doFinal(input.getBytes());
-//            return new String(base64Decoder.decode(decipheredBytes));
-//        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-
     public static void main(String[] args) throws ParseException, NoSuchAlgorithmException, IOException {
 
         Date now = new Date();
@@ -80,12 +53,13 @@ public class Main {
         System.out.println("Encrypted claims:");
         System.out.println(encryptedClaimsObject.toString());
 
-        // a AES key to encrypt the claim
+        // an AES key to encrypt the claim
         String secretKey = "supertajneheslo";
 
         System.out.println("\nSymmetric Key: (koe claim)");
         System.out.println(secretKey);
 
+        // generate a key pair
         SecureRandom secureRandom = new SecureRandom();
 
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
@@ -102,6 +76,7 @@ public class Main {
 
         String encryptedClaims = AES.encrypt(encryptedClaimsObject.toString(), secretKey);
 
+        // add the default JWT claims
         JWTClaimsSet jwtClaims = new JWTClaimsSet.Builder()
                 .issuer("sso.csob.sk")
                 .subject("alice")
@@ -117,6 +92,7 @@ public class Main {
         System.out.println("\nEncrypted claims: (ecs claim)");
         System.out.println(encryptedClaims);
 
+        // construct the JWT token
         PlainHeader header = new PlainHeader();
 
         JWT jwt = new PlainJWT(header, jwtClaims);
@@ -124,14 +100,18 @@ public class Main {
         System.out.println("\nJWT token with encrypted email claim:");
         System.out.println(jwt.serialize());
 
+        // parse the JWT token
         JWT parsedJWT = PlainJWT.parse(jwt.serialize());
 
+        // extract claims
         Map<String, Object> claims = parsedJWT.getJWTClaimsSet().getClaims();
 
+        // decrypt the AES key
         byte[] encryptedKey = base64Decoder.decode(((String) claims.get("koe")).getBytes());
 
         String key = new String(RSAUtils.decrypt(keyPair.getPrivate(), encryptedKey));
 
+        // decrypt the encrypted claims
         String decryptedClaims = AES.decrypt((String) claims.get("ecs"), key);
 
         JSONObject decryptedClaimsObject = new JSONObject(decryptedClaims);
