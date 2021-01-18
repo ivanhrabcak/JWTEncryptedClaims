@@ -9,8 +9,6 @@ import java.util.Arrays;
 import java.util.Base64;
 
 public class AES {
-    public static final String SALT = "1EVAXlM3HxNDD3m4l1ojcIYtqtA8jEhTRD40m4/2YLK5ak8lLElSYyBKbD7QJ2RdBGicw37I7/8PHD4rm6a1eb0Z0I4oZVANEB03cLFE3vUKP1NqDOnBgUgq62Gwt9InzHNrnBRddSooorfynzIpQiTyRYObx83oxcvHAloVfPM=";
-    
     private static SecretKeySpec secretKey;
     private static byte[] key;
 
