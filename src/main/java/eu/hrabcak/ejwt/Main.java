@@ -1,18 +1,4 @@
-package com.example.jwe;
-
-//    public static PublicKey readPublicKey(Path file) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-//        byte[] keyBytes = Files.readAllBytes(file);
-//        X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
-//        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-//        return keyFactory.generatePublic(spec);
-//    }
-//
-//    public static PrivateKey readPrivateKey(Path file) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-//        byte[] keyBytes = Files.readAllBytes(file);
-//        PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(keyBytes);
-//        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-//        return keyFactory.generatePrivate(spec);
-//    }
+package eu.hrabcak.ejwt;
 
 import com.nimbusds.jose.PlainHeader;
 import com.nimbusds.jwt.JWT;
@@ -20,19 +6,8 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.PlainJWT;
 import org.json.JSONObject;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.security.*;
-import java.security.cert.CertificateEncodingException;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
-import java.security.spec.InvalidKeySpecException;
 import java.text.ParseException;
 import java.util.*;
 

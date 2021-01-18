@@ -1,4 +1,4 @@
-package com.example.jwe;
+package eu.hrabcak.ejwt;
 
 import java.io.DataOutputStream;
 import java.io.File;

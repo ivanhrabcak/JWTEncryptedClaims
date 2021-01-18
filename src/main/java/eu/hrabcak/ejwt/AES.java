@@ -1,4 +1,4 @@
-package com.example.jwe;
+package eu.hrabcak.ejwt;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
