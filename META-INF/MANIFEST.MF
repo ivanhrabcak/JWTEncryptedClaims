@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Main-Class: com.example.jwe.Main
+Class-Path: nimbus-jose-jwt-9.4.1.jar jcip-annotations-1.0-1.jar json-20
+ 201115.jar
+
